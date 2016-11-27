@@ -6,7 +6,7 @@ use Response;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
-class DownloadMacroServiceProvider extends ServiceProvider
+class EloquentStorageServiceProvider extends ServiceProvider
 {
     public function boot()
     {
@@ -23,6 +23,10 @@ class DownloadMacroServiceProvider extends ServiceProvider
             ];
             return Response::make($content, $status, $headers);
         });
+
+        $this->publishes([
+            __DIR__ . '/../config/eloquentstorage.php' => config_path('eloquentstorage.php')
+        ]);
     }
 
     public function register()
