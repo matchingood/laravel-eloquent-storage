@@ -1,0 +1,13 @@
+{
+    "name": "matchingood/laravel-eloquent-storage",
+    "description": "Eloquent model which manages files.",
+    "type": "library",
+    "require": {
+        "laravel/framework": "^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "MatchinGood\\EloquentStorage\\": "src/"
+        }
+    }
+}
