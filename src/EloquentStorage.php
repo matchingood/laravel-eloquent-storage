@@ -7,7 +7,7 @@ use File;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 
-class StorageModel extends Model
+class EloquentStorage extends Model
 {
     /**
      * get content. when FileNotFoundException
