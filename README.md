@@ -12,7 +12,7 @@ $userFile->getContent(); // the content in the $file
 ## Installation
 In your composer.json,
 ```
-"matchingood/laravel-eloquent-storage": "^0.1"
+"matchingood/laravel-eloquent-storage": "^0.2"
 ```
 Then you register EloquentStorage at config/app.php.
 ```
@@ -31,10 +31,11 @@ Then you can configure app/eloquentstorage.php
 
 ## Usage
 
-First of all, you have to add 2 specific columns on the tables you want to let it manage file.
+First of all, you have to add 3 specific columns on the tables you want to let it manage file.
 ```php
 $table->string('file_name');
 $table->string('unique_file_name');
+$table->string('directory');
 ```
 
 Then, you can enable eloquet models to manage files by using `MatchinGood\EloquentStorage`.
