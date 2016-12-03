@@ -16,7 +16,7 @@ class EloquentStorage extends Model
      */
     public function getContent()
     {
-        return $this->getDisk()->get($this->getFilePath($this->directory));
+        return $this->getDisk()->get($this->getFilePath());
     }
 
     /**
@@ -33,7 +33,7 @@ class EloquentStorage extends Model
         }
         $this->file_name = $name;
         $this->directory = isset($dir) ? $dir : '';
-        if ($this->getDisk()->put($this->getFilePath($dir), $content) === false) {
+        if ($this->getDisk()->put($this->getFilePath(), $content) === false) {
             return false;
         }
         return $this->save();
@@ -88,9 +88,10 @@ class EloquentStorage extends Model
         return Storage::disk(config('eloquentstorage.prod'));
     }
 
-    private function getFilePath($rootDir = null)
+    private function getFilePath()
     {
         $directory = $this->getTable();
+        $rootDir = $this->directory;
         if (isset($rootDir) && $rootDir != '') {
             $directory = "{$rootDir}/{$directory}";
         }

@@ -41,7 +41,7 @@ $table->string('directory');
 Then, you can enable eloquet models to manage files by using `MatchinGood\EloquentStorage`.
 
 ```php
-class UserFile extends MatchinGood\EloquentStorage
+class UserFile extends MatchinGood\EloquentStorage\EloquentStorage
 {
 
 }
