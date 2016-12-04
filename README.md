@@ -33,8 +33,14 @@ Then you can configure app/eloquentstorage.php
 
 First of all, you have to add 3 specific columns on the tables you want to let it manage file.
 ```php
+// original file name
 $table->string('file_name');
+
+// unique file name to avoid conflicting original names
 $table->string('unique_file_name');
+
+// directory to store directory information
+// for using directory parameters on saveConent or saveUploadedFile
 $table->string('directory');
 ```
 
@@ -57,6 +63,11 @@ $userFile->saveContent('file name', 'content');
 // 2. store uploaded file
 $file = $request->file('file');
 $userFile->saveFromUploadedFile($file);
+
+// you can add root directory like below
+// in this case with local driver,
+// it's gonna be stored at storage/app/root/user_files/xxxxxx
+$userFile->saveFromUploadedFile($file, 'root');
 ```
 
 Then you can check the new record on the table and the new file you saved at `storage/user_files/xxxxxxx`.
