@@ -12,7 +12,7 @@ $userFile->getContent(); // the content in the $file
 ## Installation
 In your composer.json,
 ```
-"matchingood/laravel-eloquent-storage": "^0.2"
+"matchingood/laravel-eloquent-storage": "^0.2.1"
 ```
 Then you register EloquentStorage at config/app.php.
 ```
