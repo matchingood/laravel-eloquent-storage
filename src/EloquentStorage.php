@@ -85,7 +85,7 @@ class EloquentStorage extends Model
 
     private function getDisk()
     {
-        return Storage::disk(config('eloquentstorage.prod'));
+        return Storage::disk(config('eloquentstorage.driver'));
     }
 
     private function getFilePath()
