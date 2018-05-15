@@ -88,7 +88,7 @@ class EloquentStorage extends Model
         return Storage::disk(config('eloquentstorage.driver'));
     }
 
-    private function getFilePath()
+    protected function getFilePath()
     {
         $directory = $this->getTable();
         $rootDir = $this->directory;
