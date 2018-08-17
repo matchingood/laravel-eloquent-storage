@@ -17,9 +17,10 @@ class EloquentStorageServiceProvider extends ServiceProvider
                 abort(404);
             }
             $fileName = $model->file_name;
+            $fileNameSjisWin = mb_convert_encoding($fileName, 'SJIS-win', 'UTF-8');
             $headers = [
                 'Content-Type' => 'application/octet-stream',
-                'Content-disposition' => "attachment; filename={$fileName}"
+                'Content-disposition' => "attachment; filename={$fileNameSjisWin}",
             ];
             return Response::make($content, $status, $headers);
         });
