@@ -25,7 +25,7 @@ class EloquentStorageServiceProvider extends ServiceProvider
             return Response::make($content, $status, $headers);
         });
 
-        Response::macro('downloadEloquentStorage', function (EloquentStorage $model, $status = 200, $mimetype = null) {
+        Response::macro('openEloquentStorage', function (EloquentStorage $model, $status = 200, $mimetype = null) {
             $content = $model->getContent();
 
             $headers = [
