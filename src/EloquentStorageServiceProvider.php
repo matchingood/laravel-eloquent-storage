@@ -25,11 +25,12 @@ class EloquentStorageServiceProvider extends ServiceProvider
             return Response::make($content, $status, $headers);
         });
 
-        Response::macro('openEloquentStorage', function (EloquentStorage $model, $status = 200, $mimetype = null) {
+        $me = $this;
+        Response::macro('openEloquentStorage', function (EloquentStorage $model, $status = 200, $mimeType = null) use ($me) {
             $content = $model->getContent();
 
             $headers = [
-                'Content-Type' => $this->identifyFileType(),
+                'Content-Type' => $me->identifyFileType($content, $mimeType),
             ];
 
             return Response::make($content, $status, $headers);
@@ -40,20 +41,20 @@ class EloquentStorageServiceProvider extends ServiceProvider
         ]);
     }
 
-    private function identifyFileType($content, $mimetype = null): string
+    private function identifyFileType($content, $mimeType = null): string
     {
         $default = 'application/octet-stream';
-        if ($mimetype == null) {
+        if ($mimeType == null) {
             $fInfo = new finfo();
             $fInfoResult = $fInfo::buffer($content, FILEINFO_MIME_TYPE);
             return $fInfoResult !== false ? $fInfoResult : $default;
         }
 
-        if (is_callable($mimetype)) {
+        if (is_callable($mimeType)) {
             return $mimetype($content);
         }
 
-        return $mimetype;
+        return $mimeType;
     }
 
     public function register()
