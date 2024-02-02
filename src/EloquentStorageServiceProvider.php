@@ -25,9 +25,35 @@ class EloquentStorageServiceProvider extends ServiceProvider
             return Response::make($content, $status, $headers);
         });
 
+        Response::macro('downloadEloquentStorage', function (EloquentStorage $model, $status = 200, $mimetype = null) {
+            $content = $model->getContent();
+
+            $headers = [
+                'Content-Type' => $this->identifyFileType(),
+            ];
+
+            return Response::make($content, $status, $headers);
+        });
+
         $this->publishes([
             __DIR__ . '/../config/eloquentstorage.php' => config_path('eloquentstorage.php')
         ]);
+    }
+
+    private function identifyFileType(string ?$content, $mimetype = null): string
+    {
+        $default = 'application/octet-stream';
+        if ($mimetype == null) {
+            $fInfo = new finfo();
+            $fInfoResult = $fInfo::buffer($content, FILEINFO_MIME_TYPE);
+            return $fInfoResult !== false ? $fInfoResult : $default;
+        }
+
+        if (is_callable($mimetype)) {
+            return $mimetype($content);
+        }
+
+        return $mimetype;
     }
 
     public function register()
