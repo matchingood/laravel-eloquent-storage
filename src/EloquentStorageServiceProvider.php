@@ -26,7 +26,7 @@ class EloquentStorageServiceProvider extends ServiceProvider
         });
 
         Response::macro('openEloquentStorage', function (EloquentStorage $model, $status = 200, $mimeType = null) {
-            return self::createFileOpenRequest($model, $status, $mimeType);
+            return EloquentStorageServiceProvider::createFileOpenRequest($model, $status, $mimeType);
         });
 
         $this->publishes([
