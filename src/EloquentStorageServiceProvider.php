@@ -40,7 +40,7 @@ class EloquentStorageServiceProvider extends ServiceProvider
         ]);
     }
 
-    private function identifyFileType(string ?$content, $mimetype = null): string
+    private function identifyFileType($content, $mimetype = null): string
     {
         $default = 'application/octet-stream';
         if ($mimetype == null) {
