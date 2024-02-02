@@ -49,8 +49,8 @@ class EloquentStorageServiceProvider extends ServiceProvider
     {
         $default = 'application/octet-stream';
         if ($mimeType == null) {
-            $fInfo = new finfo();
-            $fInfoResult = $fInfo::buffer($content, FILEINFO_MIME_TYPE);
+            $fInfo = new \finfo();
+            $fInfoResult = $fInfo->buffer($content, FILEINFO_MIME_TYPE);
             return $fInfoResult !== false ? $fInfoResult : $default;
         }
 
