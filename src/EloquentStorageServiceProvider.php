@@ -51,7 +51,7 @@ class EloquentStorageServiceProvider extends ServiceProvider
         }
 
         if (is_callable($mimeType)) {
-            return $mimetype($content);
+            return $mimeType($content);
         }
 
         return $mimeType;
