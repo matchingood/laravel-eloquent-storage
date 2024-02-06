@@ -42,7 +42,6 @@ class EloquentStorageServiceProvider extends ServiceProvider
             ];
 
             return Response::make($content, $status, $headers);
-
     }
 
     private static function identifyFileType($content, $mimeType = null): string
