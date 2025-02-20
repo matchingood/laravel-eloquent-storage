@@ -33,10 +33,9 @@ class EloquentStorageServiceProvider extends ServiceProvider
         } catch (FileNotFoundException $e) {
             abort(404);
         }
-        $fileName = $model->file_name;
         $headers = [
             'Content-Type' => 'application/octet-stream',
-            'Content-Disposition' => self::formatContentDisposition(self::DISPOSITION_TYPE_ATTACHMENT, $fileName),
+            'Content-Disposition' => self::formatContentDisposition(self::DISPOSITION_TYPE_ATTACHMENT, $model->file_name),
         ];
         return Response::make($content, $status, $headers);
     }
@@ -46,6 +45,7 @@ class EloquentStorageServiceProvider extends ServiceProvider
         $content = $model->getContent();
         $headers = [
             'Content-Type' => self::identifyFileType($content, $mimeType),
+            'Content-Disposition' => self::formatContentDisposition(self::DISPOSITION_TYPE_INLINE, $model->file_name),
         ];
 
         return Response::make($content, $status, $headers);
