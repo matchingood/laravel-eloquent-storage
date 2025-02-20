@@ -70,6 +70,7 @@ class EloquentStorageServiceProvider extends ServiceProvider
     private static function formatContentDisposition($dispositionType, $filename)
     {
         $filenameSjisWin = mb_convert_encoding($filename, 'SJIS-win', 'UTF-8');
-        return "{$dispositionType}; filename={$filenameSjisWin}";
+        $extendName = urlencode($filename);
+        return "{$dispositionType}; filename={$filenameSjisWin}; filename*=UTF-8''{$extendName}";
     }
 }
