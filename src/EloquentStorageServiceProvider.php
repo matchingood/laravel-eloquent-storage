@@ -59,9 +59,4 @@ class EloquentStorageServiceProvider extends ServiceProvider
 
         return $mimeType;
     }
-
-    public function register()
-    {
-        //
-    }
 }
