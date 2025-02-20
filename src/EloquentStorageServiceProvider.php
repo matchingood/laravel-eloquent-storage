@@ -41,12 +41,12 @@ class EloquentStorageServiceProvider extends ServiceProvider
 
     public static function createFileOpenRequest(EloquentStorage $model, $status = 200, $mimeType = null)
     {
-            $content = $model->getContent();
-            $headers = [
-                'Content-Type' => self::identifyFileType($content, $mimeType),
-            ];
+        $content = $model->getContent();
+        $headers = [
+            'Content-Type' => self::identifyFileType($content, $mimeType),
+        ];
 
-            return Response::make($content, $status, $headers);
+        return Response::make($content, $status, $headers);
     }
 
     private static function identifyFileType($content, $mimeType = null): string
