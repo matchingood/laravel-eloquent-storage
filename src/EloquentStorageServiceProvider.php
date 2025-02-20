@@ -26,6 +26,9 @@ class EloquentStorageServiceProvider extends ServiceProvider
         ]);
     }
 
+    /**
+     * ファイルをダウンロードして保存させるためのレスポンスを作成する
+     */
     public static function createFileDownloadRequest(EloquentStorage $model, $status = 200)
     {
         try {
@@ -40,6 +43,9 @@ class EloquentStorageServiceProvider extends ServiceProvider
         return Response::make($content, $status, $headers);
     }
 
+    /**
+     * ファイルをブラウザ上で開かせるためのレスポンスを作成する
+     */
     public static function createFileOpenRequest(EloquentStorage $model, $status = 200, $mimeType = null)
     {
         $content = $model->getContent();
@@ -67,7 +73,13 @@ class EloquentStorageServiceProvider extends ServiceProvider
         return $mimeType;
     }
 
-    private static function formatContentDisposition($dispositionType, $filename)
+    /**
+     * Content-Disposition の内容を生成する
+     * @param string $dispositionType attachment または inline、self::DISPOSITION_TYPE_* 
+     * @param string $filename UTF-8でエンコードされたファイル名
+     * @return string Content-Disposition の内容
+     */
+    private static function formatContentDisposition($dispositionType, $filename): string
     {
         $safeAscii = iconv('UTF-8', 'ASCII//IGNORE', $filename);
         $extendName = urlencode($filename);
