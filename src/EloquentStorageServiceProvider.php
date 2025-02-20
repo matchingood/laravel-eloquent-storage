@@ -8,6 +8,9 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class EloquentStorageServiceProvider extends ServiceProvider
 {
+    const DISPOSITION_TYPE_ATTACHMENT = 'attachment';
+    const DISPOSITION_TYPE_INLINE = 'inline';
+
     public function boot()
     {
         Response::macro('downloadEloquentStorage', function (EloquentStorage $model, $status = 200) {
@@ -31,10 +34,9 @@ class EloquentStorageServiceProvider extends ServiceProvider
             abort(404);
         }
         $fileName = $model->file_name;
-        $fileNameSjisWin = mb_convert_encoding($fileName, 'SJIS-win', 'UTF-8');
         $headers = [
             'Content-Type' => 'application/octet-stream',
-            'Content-disposition' => "attachment; filename={$fileNameSjisWin}",
+            'Content-Disposition' => self::formatContentDisposition(self::DISPOSITION_TYPE_ATTACHMENT, $fileName),
         ];
         return Response::make($content, $status, $headers);
     }
@@ -63,5 +65,11 @@ class EloquentStorageServiceProvider extends ServiceProvider
         }
 
         return $mimeType;
+    }
+
+    private static function formatContentDisposition($dispositionType, $filename)
+    {
+        $filenameSjisWin = mb_convert_encoding($filename, 'SJIS-win', 'UTF-8');
+        return "{$dispositionType}; filename={$filenameSjisWin}";
     }
 }
