@@ -28,6 +28,7 @@ class EloquentStorageServiceProvider extends ServiceProvider
 
     /**
      * ファイルをダウンロードして保存させるためのレスポンスを作成する
+     * @remark macroから呼び出すため、publicである必要がある
      */
     public static function createFileDownloadRequest(EloquentStorage $model, $status = 200)
     {
@@ -45,6 +46,7 @@ class EloquentStorageServiceProvider extends ServiceProvider
 
     /**
      * ファイルをブラウザ上で開かせるためのレスポンスを作成する
+     * @remark macroから呼び出すため、publicである必要がある
      */
     public static function createFileOpenRequest(EloquentStorage $model, $status = 200, $mimeType = null)
     {
